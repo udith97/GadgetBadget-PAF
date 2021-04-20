@@ -32,7 +32,7 @@ public class ProjectServlet {
 					 {
 						 return "Error while connecting to the database for inserting."; } 
 					 // create a prepared statement
-					 String query = " insert into investment (	project_id , project_type , project_name , researcher , Description)" + " values (?, ?, ?, ?, ?)"; 
+					 String query = " insert into project_table (	project_id , project_type , project_name , researcher , Description)" + " values (?, ?, ?, ?, ?)"; 
 					 
 					 PreparedStatement preparedStmt = con.prepareStatement(query); 
 					 // binding values
@@ -52,7 +52,7 @@ public class ProjectServlet {
 		 	
 		 	catch (Exception e) 
 		 	{ 
-		 		output = "Error while inserting the Investment."; 
+		 		output = "Error while inserting the Project."; 
 		 		System.err.println(e.getMessage()); 
 		 		System.out.println(e);
 		 } 
@@ -78,7 +78,7 @@ public class ProjectServlet {
 					"<th>Update</th><th>Remove</th></tr>"; 
 	 
 	 
-				String query = "select * from project_data"; 
+				String query = "select * from project_table"; 
 				Statement stmt = con.createStatement(); 
 				ResultSet rs = stmt.executeQuery(query); 
 	 
@@ -137,16 +137,16 @@ public class ProjectServlet {
 	 
 			// create a prepared statement
 	 
-			String query = "UPDATE Project SET project_type=?,project_name=?,researcher=?,Description=?	"
+			String query = "UPDATE project_table SET project_type=?,project_name=?,researcher=?,Description=?	"
 					+ "WHERE project_id=?"; 
 	 
 			PreparedStatement preparedStmt = con.prepareStatement(query); 
 			// binding values
 			preparedStmt.setString(1, project_type); 
 			preparedStmt.setString(2, project_name); 
-			preparedStmt.setString(4, researcher); 
-			preparedStmt.setString(5, Description); 
-			preparedStmt.setInt(6, Integer.parseInt(project_id)); 
+			preparedStmt.setString(3, researcher); 
+			preparedStmt.setString(4, Description); 
+			preparedStmt.setInt(5, Integer.parseInt(project_id)); 
 			// execute the statement
 			preparedStmt.execute(); 
 			con.close(); 
@@ -157,6 +157,7 @@ public class ProjectServlet {
 		{ 
 			output = "Error while updating the project."; 
 			System.err.println(e.getMessage()); 
+			System.out.println(e);
 		} 
 		return output; 
 	 } 
@@ -174,7 +175,7 @@ public class ProjectServlet {
 				return "Error while connecting to the database for deleting."; } 
 	 
 			// create a prepared statement
-			String query = "delete from project where project_id=?"; 
+			String query = "delete from project_table where project_id=?"; 
 			PreparedStatement preparedStmt = con.prepareStatement(query); 
 	 
 			// binding values
@@ -190,6 +191,7 @@ public class ProjectServlet {
 		{ 
 			output = "Error while deleting the project."; 
 			System.err.println(e.getMessage()); 
+			System.out.println(e);
 	 
 		} 
 	
