@@ -149,7 +149,7 @@ public class BuyerServlet {
 			// execute the statement
 			preparedStmt.execute(); 
 			con.close(); 
-			output = "Updated successfully"; 
+			output = "Updated Successfully"; 
 		} 
 		catch (Exception e) 
 		{ 
@@ -181,7 +181,7 @@ public class BuyerServlet {
 			// execute the statement
 			preparedStmt.execute(); 
 			con.close(); 
-			output = "Deleted successfully"; 
+			output = "Deleted Successfully"; 
 	 
 		} 
 		catch (Exception e) 
