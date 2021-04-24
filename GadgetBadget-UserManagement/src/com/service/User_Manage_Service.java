@@ -18,8 +18,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.model.User_Manage;
 
-
-
+// View User Service
 @Path("/User")
 public class User_Manage_Service {
 	User_Manage rp_obj = new User_Manage();
@@ -32,6 +31,8 @@ public class User_Manage_Service {
 		return rp_obj.read_Post();
 	}
 	
+	
+//	Insert user Service 
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -44,7 +45,46 @@ public class User_Manage_Service {
 	}
 	
 	
+	//update user service	
+
+@PUT
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updateItem(String postData)
+	{
+		//Convert the input string to a JSON object
+		JsonObject postObj = new JsonParser().parse(postData).getAsJsonObject();
+		
+		String ID = postObj.get("id").getAsString();
+		String name = postObj.get("name").getAsString();
+		String password = postObj.get("password").getAsString();
+
+
+		
+		
+		String output=rp_obj.updatePost(ID, name, password);
+		
+		return output;
+	}
+
+
+
+//Delete user service
+
+@DELETE
+@Path("/")
+@Consumes(MediaType.APPLICATION_XML)
+@Produces(MediaType.TEXT_PLAIN)
+public String deleteItem(String itemData)
+{
+	Document doc= Jsoup.parse(itemData,"",Parser.xmlParser());
 	
+	String ID=doc.select("iduser").text();
 	
-	//service
+	String output=rp_obj.deletePost(ID);
+	return output;
+}
+
+
 }
